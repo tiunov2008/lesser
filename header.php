@@ -34,16 +34,6 @@
 								'echo'            => true,
 							] );
 						?>
-						<!---<h1><i class="sl-icon-energy"></i><a href="index.html">Lesser</a></h1>
-						<nav role="navigation">
-							<ul>
-								<li><a class="active" href="index.html">Главная</a></li>
-								<li><a href="blog.html">Блог</a></li>
-								<li><a href="portfolio.html">Портфолио</a></li>
-								<li><a href="about.html">О нас</a></li>
-								<li><a href="contact.html">Контакты</a></li>
-							</ul>
-						</nav>
 					</div>
 				</div>
 			</header>

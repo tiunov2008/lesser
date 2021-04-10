@@ -1,6 +1,9 @@
-<?php get_header()
-?>
-
+<?php
+/*
+Template Name: Главная
+Template Post Type: page
+*/
+get_header();?>
 		<div id="fh5co-intro-section">
 			<div class="container">
 				<div class="row">
@@ -104,30 +107,29 @@
 	</div>
 		<div id="fh5co-services-section">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
-						<h2>Почему мы?</h2>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 services-inner text-center">
-						<span><i class="sl-icon-graph"></i></span>
-						<h3>Finance Dashboard</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-					</div>
-					<div class="col-md-4 services-inner text-center">
-						<span><i class="sl-icon-heart"></i></span>
-						<h3>Made with Love</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-					</div>
-					<div class="col-md-4 services-inner text-center">
-						<span><i class="sl-icon-key"></i></span>
-						<h3>Help &amp; Support</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-					</div>
+                <?php
+                the_content(
+                        sprintf(
+                            wp_kses(
+                                /* translators: %s: Name of current post. Only visible to screen readers */
+                                __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'lesser-temp' ),
+                                array(
+                                    'span' => array(
+                                        'class' => array(),
+                                    ),
+                                )
+                            ),
+                            wp_kses_post( get_the_title() )
+                        )
+                    );
 
-				</div>
+                    wp_link_pages(
+                        array(
+                            'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'lesser-temp' ),
+                            'after'  => '</div>',
+                        )
+                    );
+                    ?>
 			</div>
 		</div>
 		<div id="fh5co-blog-section" class="fh5co-grey-bg-section">
@@ -138,36 +140,35 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4 text-center">
-						<div class="blog-inner">
-							<a href="<?php the_permalink()?>"><img class="img-responsive" src="images/image_4.jpg" alt="Blog"></a>
-							<div class="desc">
-								<h3><a href="<?php the_permalink()?>">New iPhone 6 Released</a></h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								<p><a href="<?php the_permalink()?>" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 text-center">
-						<div class="blog-inner">
-							<a href="<?php the_permalink()?>"><img class="img-responsive" src="images/image_5.jpg" alt="Blog"></a>
-							<div class="desc">
-								<h3><a href="<?php the_permalink()?>">Start your day with a beautiful appearance</a></h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								<p><a href="<?php the_permalink()?>" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 text-center">
-						<div class="blog-inner">
-							<a href="<?php the_permalink()?>"><img class="img-responsive" src="images/image_6.jpg" alt="Blog"></a>
-							<div class="desc">
-								<h3><a href="<?php the_permalink()?>">Bookmarksgrove right</a></h3>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								<p><a href="<?php the_permalink()?>" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
-							</div>
-						</div>
-					</div>
+					<?php
+						global $post;
+
+						$myposts = get_posts([ 
+							'numberposts' => 3,
+						]);
+
+						if( $myposts ){
+							foreach( $myposts as $post ){
+								setup_postdata( $post );
+								?>     
+								<div class="col-md-4 text-center">
+									<div class="blog-inner">
+										<a href="<?php the_permalink()?>"><img class="img-responsive" src="<?php echo get_the_post_thumbnail_url( null, 'thumbnail' )?>" alt="Blog"></a>
+										<div class="desc">
+											<h3><a href="<?php the_permalink()?>"><?php the_title(); ?></a></h3>
+											<p><?php echo mb_strimwidth(get_the_excerpt(), 0 , 150, "...")?></p>
+											<p><a href="<?php the_permalink()?>" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
+										</div>
+									</div>
+								</div>
+								<?php 
+								}
+							} else {
+								?> <p>Постов не найдено</p> <?php 
+								// Постов не найдено
+							}
+							wp_reset_postdata(); // Сбрасываем $post
+						?>
 				</div>
 			</div>
 		</div>
@@ -202,5 +203,5 @@
 			</div>
 		</div>
 
-<?php get_footer()
-?>
+<?php
+get_footer();

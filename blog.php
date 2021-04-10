@@ -1,51 +1,9 @@
-
-<!DOCTYPE html>
-<html class="no-js">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Lesser</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-		<link rel="shortcut icon" href="favicon.ico">
-	
-		<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,900' rel='stylesheet' type='text/css'>
-	
-		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
-		
-		<!-- Animate.css -->
-		<link rel="stylesheet" href="css/animate.css">
-		<!-- Icomoon Icon Fonts-->
-		<link rel="stylesheet" href="css/icomoon.css">
-		<!-- Simple Line Icons -->
-		<link rel="stylesheet" href="css/simple-line-icons.css">
-		<!-- Bootstrap  -->
-		<link rel="stylesheet" href="css/bootstrap.css">
-		<!-- Theme style  -->
-		<link rel="stylesheet" href="css/style.css">
-	
-		</head>
-	<body>
-	
-	
-	<div id="fh5co-page">
-		<header id="fh5co-header" role="banner">
-			<div class="container">
-				<div class="header-inner">
-					<h1><i class="sl-icon-energy"></i><a href="index.html">Lesser</a></h1>
-					<nav role="navigation">
-						<ul>
-							<li><a href="index.html">Главная</a></li>
-							<li><a class="active" href="blog.html">Блог</a></li>
-							<li><a href="portfolio.html">Портфолио</a></li>
-							<li><a href="about.html">О нас</a></li>
-							<li><a href="contact.html">Контакты</a></li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</header>
-
+<?php
+/*
+Template Name: Блог
+Template Post Type: page
+*/
+get_header();?>	
 	<div id="fh5co-blog-section">
 		<div class="container">
 			<div class="row">
@@ -54,6 +12,37 @@
 				</div>
 			</div>
 			<div class="row blog-posts-section">
+					<?php
+						global $post;
+
+						$myposts = get_posts([ 
+							'numberposts' => 6,
+						]);
+
+						if( $myposts ){
+							foreach( $myposts as $post ){
+								setup_postdata( $post );
+								?>     
+								<div class="col-md-4 text-center">
+									<div class="blog-inner">
+										<a href="<?php the_permalink()?>"><img class="img-responsive" src="<?php echo get_the_post_thumbnail_url()?>" alt="Blog"></a>
+										<div class="desc">
+											<h3><a href="single.html"><?php the_title(); ?></a></h3>
+											<p><?php echo mb_strimwidth(get_the_excerpt(), 0 , 125, "...")?></p>
+											<p><a href="single.html" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
+										</div>
+									</div>
+								</div>
+								<?php 
+								}
+							} else {
+								?> <p>Постов не найдено</p> <?php 
+								// Постов не найдено
+							}
+							wp_reset_postdata(); // Сбрасываем $post
+						?>
+				</div>
+			<!--<div class="row blog-posts-section">
 				<div class="col-md-4 text-center">
 					<div class="blog-inner">
 						<a href="single.html"><img class="img-responsive" src="images/image_4.jpg" alt="Blog"></a>
@@ -117,7 +106,7 @@
 					</div>
 				</div>
 
-			</div>
+			</div>-->
 
 			</div>
 		</div>
