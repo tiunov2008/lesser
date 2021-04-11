@@ -8,7 +8,7 @@ get_header();?>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center">
-						<h1>Курс на социально-ориентированный национальный проект связывает нас с нашим прошлым</h1>
+						<h1><?php echo get_field("main_title"); ?></h1>
 					</div>
 				</div>
 			</div>
@@ -112,7 +112,7 @@ get_header();?>
                         sprintf(
                             wp_kses(
                                 /* translators: %s: Name of current post. Only visible to screen readers */
-                                __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'lesser-temp' ),
+                                __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'lesser' ),
                                 array(
                                     'span' => array(
                                         'class' => array(),
@@ -125,7 +125,7 @@ get_header();?>
 
                     wp_link_pages(
                         array(
-                            'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'lesser-temp' ),
+                            'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'lesser' ),
                             'after'  => '</div>',
                         )
                     );
@@ -176,29 +176,45 @@ get_header();?>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
-						<h2>Отзывы</h2>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+						<h2><?php echo get_the_title(67) ?></h2>
+						<p><?php 
+						$field = get_post_field( 'post_content', 67, 'db' );
+						echo $field;
+
+						// получим: Заголовок поста 1 ?></p>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6 text-center">
-						<div class="testimony">
-							<span class="quote"><i class="icon-quote-right"></i></span>
-							<blockquote>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								<span>Athan Smith</span>
-							</blockquote>
-						</div>
-					</div>
-					<div class="col-md-6 text-center">
-						<div class="testimony">
-							<span class="quote"><i class="icon-quote-right"></i></span>
-							<blockquote>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-								<span>Athan Smith</span>
-							</blockquote>
-						</div>
-					</div>
+				<?php
+					global $post;
+
+					$myposts = get_posts([ 
+						'numberposts' => 2,
+						'post_type'   => 'Reviews',
+					]);
+
+					if( $myposts ){
+						foreach( $myposts as $post ){
+							setup_postdata( $post );
+							?>
+							<div class="col-md-6 text-center">
+								<div class="testimony">
+									<span class="quote"><i class="icon-quote-right"></i></span>
+									<blockquote>
+										<p><?php echo mb_strimwidth(get_the_excerpt(), 0 , 250, "...")?></p>
+										<span><?php the_title(); ?></span>
+									</blockquote>
+								</div>
+							</div>
+
+							<?php 
+						}
+					} else {
+						// Постов не найдено
+					}
+
+					wp_reset_postdata(); // Сбрасываем $post
+					?>
 				</div>
 			</div>
 		</div>

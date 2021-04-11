@@ -4,26 +4,36 @@
     <div class="container">
         <div class="col-md-3 col-sm-12 col-sm-push-0 col-xs-12 col-xs-push-0">
             <h3>О нас</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+            <p><?php 
+				$field = get_post_field( 'post_content', 36, 'db' );
+                echo $field;?></p>
         </div>
         <div class="col-md-6 col-md-push-1 col-sm-12 col-sm-push-0 col-xs-12 col-xs-push-0">
             <h3>Портфолио</h3>
-
             <ul class="float">
-                <li><a href="#">Free Bootstrap Template</a></li>
-                <li><a href="#">Free HTML5 Template</a></li>
-                <li><a href="#">Free HTML5 &amp; CSS3 Template</a></li>
-                <li><a href="#">HandCrafted Templates</a></li>
+                <?php
+                    $categories = get_categories();
+                    $n = 0;
+                    foreach ($categories as $category) {?>
+                        <li><a href="<?php echo get_category_link($category->term_id)?>"><?php echo $categories[$n]->name;?></a></li>
+                    <?php
+                        $n++;
+                    }
+                ?>
             </ul>
-
         </div>
 
         <div class="col-md-2 col-md-push-1 col-sm-12 col-sm-push-0 col-xs-12 col-xs-push-0">
             <h3>Мы в соц сетях</h3>
             <ul class="fh5co-social">
-                <li><a href="#"><i class="icon-twitter"></i> Twitter</a></li>
-                <li><a href="#"><i class="icon-facebook"></i> Facebook</a></li>
-                <li><a href="#"><i class="icon-instagram"></i> Instagram</a></li>
+                <?php 
+                if (!(get_field("twitter") == ' ')){ ?>
+                    <li><a href="<?php echo get_field("twitter"); ?>"><i class="icon-twitter"></i>Twitter</a></li>
+                <?php } if (!(get_field("facebook") == ' ')){ ?>
+                    <li><a href="<?php echo get_field("facebook"); ?>"><i class="icon-facebook"></i> Facebook</a></li>
+                <?php } if (!(get_field("instagram") == ' ')){ ?>
+                    <li><a href="<?php echo get_field("instagram"); ?>"><i class="icon-instagram"></i> Instagram</a></li>
+                <?php } ?>
             </ul>
         </div>
         

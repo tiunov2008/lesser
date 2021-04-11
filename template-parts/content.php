@@ -1,67 +1,66 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<div class="post-content" style="background: linear-gradient(0deg, rgba(38, 45, 51, 0.75), rgba(38, 45, 51, 0.75)), url(
-        <?php echo get_the_post_thumbnail_url(); ?>); background-repeat: no-repeat;	 background-size: 100%; background-position:center center;
-">
+
+	<div id="fh5co-single-section">
 		<div class="container">
-			<div class="post-wrapper">
-				<div class="post-header-nav">
-					<?php
-					foreach(get_the_category() as $category){
-						printf(
-							'<a href="%s" class="category-link %s">%s </a>',
-							esc_url(get_category_link( $category )) ,
-							esc_html($category -> slug),
-							esc_html($category -> name)
-						);
-					} 
-
-					?>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+					<h1>Может показаться странным, но обучение кадров - приоритетная задача</h1>
 				</div>
-				<?php
-					if( is_singular() ) :
-						the_title( '<h1 class="post-header-title">' , '</h1>'  );
-					else :
-						the_title( '<h1 class="post-header-title"><a href="' . esc_url( get_the_permalink( )) .'" rel="bookmark">' ,'</h1>'  );
-					endif;
-					?>
-		</div>
-			<?php
-				the_content(
-					sprintf(
-						wp_kses(
-							/* translators: %s: Name of current post. Only visible to screen readers */
-							__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'universal' ),
-							array(
-								'span' => array(
-									'class' => array(),
-								),
-							)
-						),
-						wp_kses_post( get_the_title() )
-					)
-				);
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="work-inner">
+							<img src="<?php echo get_the_post_thumbnail_url(); ?>" >									</div>
+							<?php
+								the_content(
+									sprintf(
+										wp_kses(
+											/* translators: %s: Name of current post. Only visible to screen readers */
+											__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'universal' ),
+											array(
+												'span' => array(
+													'class' => array(),
+												),
+											)
+										),
+										wp_kses_post( get_the_title() )
+									)
+								);
 
-				wp_link_pages(
-					array(
-						'before' => '<div class="page-links">' . esc_html__( 'Страницы:', 'universal' ),
-						'after'  => '</div>',
-					)
-				);
-			?>
+								wp_link_pages(
+									array(
+										'before' => '<div class="page-links">' . esc_html__( 'Страницы:', 'universal' ),
+										'after'  => '</div>',
+									)
+								);
+							?>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<aside class="sidebar">
+						<div class="row">
+							<div class="col-md-12 side">
+								<h3>Категории</h3>
+								<ul>
+									<li><i class="icon-check"></i><a href="#">Web Design</a></li>
+									<li><i class="icon-check"></i><a href="#">Branding &amp; Identity</a></li>
+									<li><i class="icon-check"></i><a href="#">Free HTML5</a></li>
+									<li><i class="icon-check"></i><a href="#">HandCrafted Templates</a></li>
+									<li><i class="icon-check"></i><a href="#">Free Bootstrap Template</a></li>
+									<li><i class="icon-check"></i><a href="#">Free HTML5 Template</a></li>
+									<li><i class="icon-check"></i><a href="#">Free HTML5 &amp; CSS3 Template</a></li>
+									<li><i class="icon-check"></i><a href="#">HandCrafted Templates</a></li>
+								</ul>
+							</div>
+
+						</div>
+					</aside>
+				</div>
+			</div>
 		</div>
-	</div><!-- .entry-content -->
-	<footer class="post-footer">
-		<div class="container">
-			<?php 
-			$tags_list = get_the_tag_list('', esc_html_x( '',"list item separator", 'universal' ));
-			if($tags_list){
-				printf('<span class="tags-links">' . esc_html__( '%1$s', 'universal') . '</span>', $tags_list);
-			}
-			
-			?>
-		</div>
-		
-	</footer>
-	<!-- /.post-header-footer -->
-</article>
+	</div>
+
+

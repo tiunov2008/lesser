@@ -22,7 +22,7 @@
 							echo '<div class="logo">' . get_custom_logo() . 
 							'<span class="logo-name">' . get_bloginfo('name') . '</span>' . '</div>';
 							} else {
-								echo '<i class="sl-icon-energy"></i>' . get_bloginfo('name');
+								echo '<h1><i class="sl-icon-energy"></i>' . get_bloginfo('name') . '</h1>';
 							} ?>
 						<?php 
 							wp_nav_menu( [
